@@ -147,32 +147,6 @@ export async function GameCard(game: Game) {
       <td className="p-4 text-center">
         <p>{parseDate(game.pgn)}</p>
       </td>
-      {/* <div>
-        {['white', 'black'].map((player) => (
-          <div key={player}>
-            <div
-              className={`${getPlayerColor(
-                player,
-              )} p-2 w-2 inline-block rounded-sm ${winnerStyle(player)}`}
-            />
-            <Link
-              href={`/${getPlayer(player).username}`}
-              className={'text-lg font-semibold'}
-            >
-              {' '}
-              {getPlayer(player).username}{' '}
-            </Link>
-            <p className="inline-block">{getPlayer(player).rating}</p>
-          </div>
-        ))}
-      </div>
-      <a
-        href={`https://chesscompass.com/analyze/${data.game_id}`}
-        target={'_blank'}
-        rel="noreferrer"
-      >
-        <button className="primary-button">Analyze</button>
-      </a> */}
     </tr>
   );
 }
