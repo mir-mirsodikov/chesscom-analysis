@@ -1,25 +1,6 @@
-// 'use client';
-// import { useEffect } from 'react';
+import { GameCard } from '@/components/GameCard';
 import { UserProfileCard } from '@/components/UserProfileCard';
-
-interface UserInfo {
-  avatar: string;
-  name: string;
-  last_online: string;
-}
-
-interface Game {
-  url: string,
-  pgn: string,
-  time_control: string,
-  end_time: string,
-  rated: boolean,
-  uuid: string,
-  time_class: string,
-  rules: string,
-}
-
-type GameList = Game[];
+import { Games, UserInfo } from '@/model';
 
 async function getUserInfo(username: string) {
   const res = await fetch(`https://api.chess.com/pub/player/${username}`);
@@ -40,7 +21,7 @@ async function getUserGames(username: string, year: number, month: number) {
     throw new Error(`An error has occurred: ${res.status}`);
   }
 
-  return (await res.json()).games as Promise<GameList>;
+  return (await res.json()).games as Promise<Games>;
 }
 
 export default async function Page({
@@ -59,12 +40,14 @@ export default async function Page({
         avatar: data.avatar,
         name: data.name,
         username: params.username,
+        last_online: data.last_online,
       }} /> 
-      {games.map((game) => (
-        <div key={game.uuid}>
-          <p>{game.uuid}</p>
-        </div>
-      ))}
+      <div className='space-y-4 m-4'>
+        {games.map((game) => (
+          /* @ts-expect-error Server Component */
+          <GameCard {...game} key={game.uuid} />
+        ))}
+      </div>
       {games.length}
     </main>
   );

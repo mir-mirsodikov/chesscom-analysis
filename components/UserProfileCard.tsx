@@ -1,16 +1,11 @@
+import { UserInfo } from '@/model';
 import ProfileImage from './ProfileImage';
-
-interface UserProfileCardProps {
-  avatar: string;
-  name: string;
-  username: string;
-}
 
 export function UserProfileCard({
   avatar,
   name,
   username,
-}: UserProfileCardProps) {
+}: UserInfo) {
   return (
     <div className="flex flex-col items-center">
       <ProfileImage src={avatar} />
