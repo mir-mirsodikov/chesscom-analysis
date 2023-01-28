@@ -52,7 +52,7 @@ export default async function Page({
         }}
       />
       <div className="my-8">
-        <table className="table-auto w-1/2 m-auto">
+        <table className="table-auto xl:w-2/3 w-full mx-4 xl:m-auto">
           <thead className="border-b-2 border-slate-500">
             <tr>
               <th>Type</th>
