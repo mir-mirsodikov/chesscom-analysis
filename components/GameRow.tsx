@@ -35,8 +35,8 @@ function getScore(winner: 'white' | 'black' | 'draw', game: Game) {
     };
   } else if (winner === 'black' && game.black.result === 'win') {
     return {
-      white: '1',
-      black: '0',
+      white: '0',
+      black: '1',
     };
   } else {
     return {
@@ -78,11 +78,9 @@ export async function GameRow(game: Game) {
     }
   };
 
-  const winner = 'border-2 border-green-600';
-
   const winnerStyle = (player: string) => {
     if (player === results || results === 'draw') {
-      return winner;
+      return 'border-2 border-green-600';
     }
   };
 

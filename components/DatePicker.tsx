@@ -1,5 +1,20 @@
+'use client';
+import Link from 'next/link';
+import { useState } from 'react';
 
-export function DatePicker() {
+interface DatePickerProps {
+  year: number;
+  month: number;
+  username: string;
+}
+
+export function DatePicker({
+  year: inputYear,
+  month: inputMonth,
+  username,
+}: DatePickerProps) {
+  const [year, setYear] = useState(inputYear);
+  const [month, setMonth] = useState(inputMonth);
   const months = [
     'January',
     'February',
@@ -16,23 +31,50 @@ export function DatePicker() {
   ];
 
   return (
-    <div className="flex">
-      <select>
+    <div className="flex ml-4">
+      <select
+        className="p-2 bg-slate-400 rounded-sm"
+        onChange={(e) => {
+          setYear(parseInt(e.target.value));
+        }}
+        value={year}
+      >
         {/* List all years since 2007 */}
-        {Array.from({ length: 14 }, (_, i) => i + 2007).map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
+        {Array.from(
+          { length: new Date().getFullYear() - 2007 + 1 },
+          (_, i) => i + 2007,
+        )
+          .reverse()
+          .map((_year) => (
+            <option
+              key={_year}
+              value={_year}
+              defaultValue={inputYear.toString()}
+            >
+              {_year}
+            </option>
+          ))}
       </select>
-      <select>
+      <select
+        onChange={(e) => {
+          setMonth(parseInt(e.target.value));
+        }}
+        value={month}
+      >
         {/* List all months */}
-        {months.map((month, i) => (
-          <option key={month} value={i + 1}>
-            {month}
+        {months.map((_month, i) => (
+          <option
+            key={_month}
+            value={i + 1}
+            defaultValue={months[inputMonth - 1]}
+          >
+            {_month}
           </option>
         ))}
       </select>
+      <Link href={`/${username}?year=${year}&month=${month}`}>
+        <button className="primary-button w-32 ml-4">Go</button>
+      </Link>
     </div>
   );
 }
