@@ -43,7 +43,7 @@ export default async function Page({
         last_online: data.last_online,
       }} /> 
       <div className='space-y-4 m-4'>
-        {games.map((game) => (
+        {games.reverse().map((game) => (
           /* @ts-expect-error Server Component */
           <GameCard {...game} key={game.uuid} />
         ))}
