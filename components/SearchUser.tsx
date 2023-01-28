@@ -7,7 +7,7 @@ export function SearchUser() {
   const [username, setUsername] = useState('');
 
   return (
-    <div className="w-1/4 p-4 bg-slate-300 rounded-md m-auto mt-36">
+    <div className="lg:w-1/4 md:w-1/2 p-4 m-4 bg-slate-300 rounded-md md:m-auto md:mt-36">
       <h1 className="text-3xl">Find user</h1>
 
       <div className="mt-4">
