@@ -1,4 +1,5 @@
-import { GameCard } from '@/components/GameCard';
+import { DatePicker } from '@/components/DatePicker';
+import { GameRow } from '@/components/GameRow';
 import { UserProfileCard } from '@/components/UserProfileCard';
 import { Games, UserInfo } from '@/model';
 
@@ -51,6 +52,7 @@ export default async function Page({
           last_online: data.last_online,
         }}
       />
+      <DatePicker />
       <div className="my-8">
         <table className="table-auto xl:w-2/3 w-full mx-4 xl:m-auto">
           <thead className="border-b-2 border-slate-500">
@@ -65,7 +67,7 @@ export default async function Page({
           <tbody className="">
             {games.reverse().map((game) => (
               // @ts-expect-error Server Component
-              <GameCard {...game} key={game.uuid} />
+              <GameRow {...game} key={game.uuid} />
             ))}
           </tbody>
         </table>

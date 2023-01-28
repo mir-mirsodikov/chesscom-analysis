@@ -46,7 +46,7 @@ function getScore(winner: 'white' | 'black' | 'draw', game: Game) {
   }
 }
 
-export async function GameCard(game: Game) {
+export async function GameRow(game: Game) {
   const data = await getAnalysis(game.pgn);
   const results = getResults(game);
 
