@@ -7,6 +7,6 @@
     @apply bg-white;
   }
   .primary-button {
-    @apply bg-slate-600 hover:bg-slate-500 w-full mt-4 p-2 text-white rounded-md shadow-lg;
+    @apply bg-slate-600 hover:bg-slate-500 w-full p-2 text-white rounded-md shadow-lg;
   }
 }

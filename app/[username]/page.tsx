@@ -42,13 +42,25 @@ export default async function Page({
         username: params.username,
         last_online: data.last_online,
       }} /> 
-      <div className='space-y-4 m-4'>
-        {games.reverse().map((game) => (
-          /* @ts-expect-error Server Component */
-          <GameCard {...game} key={game.uuid} />
-        ))}
+      <div className='my-8'>
+        <table className='table-auto w-1/2 m-auto'>
+          <thead className='border-b-2 border-slate-500'>
+            <tr>
+              <th>Type</th>
+              <th>Players</th>
+              <th>Result</th>
+              <th>Analyze</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody className=''>
+            {games.reverse().map((game) => (
+              // @ts-expect-error Server Component
+              <GameCard {...game} key={game.uuid} />
+            ))}
+          </tbody>
+        </table>
       </div>
-      {games.length}
     </main>
   );
 }

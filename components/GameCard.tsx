@@ -27,6 +27,25 @@ function getResults(game: Game): 'white' | 'black' | 'draw' {
   }
 }
 
+function getScore(winner: 'white' | 'black' | 'draw', game: Game) {
+  if (winner === 'white' && game.white.result === 'win') {
+    return {
+      white: '1',
+      black: '0',
+    };
+  } else if (winner === 'black' && game.black.result === 'win') {
+    return {
+      white: '1',
+      black: '0',
+    };
+  } else {
+    return {
+      white: '1/2',
+      black: '1/2',
+    };
+  }
+}
+
 export async function GameCard(game: Game) {
   const data = await getAnalysis(game.pgn);
   const results = getResults(game);
@@ -59,44 +78,101 @@ export async function GameCard(game: Game) {
     }
   };
 
+  const winner = 'border-2 border-green-600';
+
+  const winnerStyle = (player: string) => {
+    if (player === results || results === 'draw') {
+      return winner;
+    }
+  };
+
+  const getPlayerColor = (player: string) => {
+    if (player === 'white') {
+      return 'bg-white';
+    } else {
+      return 'bg-gray-900';
+    }
+  };
+
+  const getPlayer = (player: string) => {
+    if (player === 'white') {
+      return game.white;
+    } else {
+      return game.black;
+    }
+  };
+
   return (
-    <div className="bg-slate-300 rounded-md p-4 w-1/2 m-auto">
-      <div className="flex justify-between">
+    <tr className="bg-slate-300 border-b">
+      <td className="text-center p-4">
         <p className="text-lg font-semibold">
-          {capitalizeFirstLetter(game.time_class)} -{' '}
-          {getTimeControl(game.time_class, game.time_control)}
+          {capitalizeFirstLetter(game.time_class)}
         </p>
+        <p>{getTimeControl(game.time_class, game.time_control)}</p>
+      </td>
+      <td className="p-4">
+        {['white', 'black'].map((player) => (
+          <div key={player}>
+            <div
+              className={`${getPlayerColor(
+                player,
+              )} p-2 w-2 inline-block rounded-sm ${winnerStyle(player)}`}
+            />
+            <Link
+              href={`/${getPlayer(player).username}`}
+              className={'text-lg font-semibold'}
+            >
+              {' '}
+              {getPlayer(player).username}{' '}
+            </Link>
+            <p className="inline-block">({getPlayer(player).rating})</p>
+          </div>
+        ))}
+      </td>
+      <td className="flex justify-center p-4">
+        <div className="">
+          <p>{getScore(results, game).white}</p>
+          <p>{getScore(results, game).black}</p>
+        </div>
+      </td>
+      <td className="p-4">
+        <a
+          href={`https://chesscompass.com/analyze/${data.game_id}`}
+          target={'_blank'}
+          rel="noreferrer"
+        >
+          <button className="primary-button">Analyze</button>
+        </a>
+      </td>
+      <td className="p-4 text-center">
         <p>{parseDate(game.pgn)}</p>
+      </td>
+      {/* <div>
+        {['white', 'black'].map((player) => (
+          <div key={player}>
+            <div
+              className={`${getPlayerColor(
+                player,
+              )} p-2 w-2 inline-block rounded-sm ${winnerStyle(player)}`}
+            />
+            <Link
+              href={`/${getPlayer(player).username}`}
+              className={'text-lg font-semibold'}
+            >
+              {' '}
+              {getPlayer(player).username}{' '}
+            </Link>
+            <p className="inline-block">{getPlayer(player).rating}</p>
+          </div>
+        ))}
       </div>
-      <div>
-        <div>
-          <div className="bg-white p-2 w-2 inline-block rounded-sm" />
-          <Link
-            href={`/${game.white.username}`}
-            className={'text-lg font-semibold'}
-          >
-            {' '}
-            {game.white.username}{' '}
-          </Link>
-          <p className="inline-block">{game.white.rating}</p>
-        </div>
-        <div>
-          <div className="bg-gray-900 p-2 w-2 inline-block rounded-sm" />
-          <Link
-            href={`/${game.black.username}`}
-            className={'text-lg font-semibold'}
-          >
-            {' '}
-            {game.black.username}{' '}
-          </Link>
-          <p className="inline-block">{game.black.rating}</p>
-        </div>
-      </div>
-      <div></div>
-      <h1 className="text-2xl font-bold"></h1>
-      <a href={`https://chesscompass.com/analyze/${data.game_id}`}>
+      <a
+        href={`https://chesscompass.com/analyze/${data.game_id}`}
+        target={'_blank'}
+        rel="noreferrer"
+      >
         <button className="primary-button">Analyze</button>
-      </a>
-    </div>
+      </a> */}
+    </tr>
   );
 }
