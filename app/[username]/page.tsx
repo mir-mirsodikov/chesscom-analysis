@@ -5,7 +5,7 @@ import { Games, UserInfo } from '@/model';
 
 async function getUserInfo(username: string) {
   const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
-    cache: 'no-cache',
+    cache: 'no-store',
   });
 
   if (!res.ok) {

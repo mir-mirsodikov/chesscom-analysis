@@ -31,9 +31,9 @@ export function DatePicker({
   ];
 
   return (
-    <div className="flex ml-4">
+    <div className="flex ml-72">
       <select
-        className="p-2 bg-slate-400 rounded-sm"
+        className="p-2 bg-slate-400 rounded-sm text-slate-100"
         onChange={(e) => {
           setYear(parseInt(e.target.value));
         }}
@@ -56,6 +56,7 @@ export function DatePicker({
           ))}
       </select>
       <select
+        className='p-2 bg-slate-400 rounded-sm ml-4 text-slate-100'
         onChange={(e) => {
           setMonth(parseInt(e.target.value));
         }}
