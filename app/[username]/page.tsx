@@ -3,7 +3,9 @@ import { UserProfileCard } from '@/components/UserProfileCard';
 import { Games, UserInfo } from '@/model';
 
 async function getUserInfo(username: string) {
-  const res = await fetch(`https://api.chess.com/pub/player/${username}`);
+  const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
+    cache: 'no-store',
+  });
 
   if (!res.ok) {
     throw new Error(`An error has occurred: ${res.status}`);
@@ -14,7 +16,12 @@ async function getUserInfo(username: string) {
 
 async function getUserGames(username: string, year: number, month: number) {
   const res = await fetch(
-    `https://api.chess.com/pub/player/${username}/games/${year}/${month < 10 ? '0' + month : month}`
+    `https://api.chess.com/pub/player/${username}/games/${year}/${
+      month < 10 ? '0' + month : month
+    }`,
+    {
+      cache: 'no-cache',
+    },
   );
 
   if (!res.ok) {
@@ -36,15 +43,17 @@ export default async function Page({
 
   return (
     <main>
-      <UserProfileCard {...{
-        avatar: data.avatar,
-        name: data.name,
-        username: params.username,
-        last_online: data.last_online,
-      }} /> 
-      <div className='my-8'>
-        <table className='table-auto w-1/2 m-auto'>
-          <thead className='border-b-2 border-slate-500'>
+      <UserProfileCard
+        {...{
+          avatar: data.avatar,
+          name: data.name,
+          username: params.username,
+          last_online: data.last_online,
+        }}
+      />
+      <div className="my-8">
+        <table className="table-auto w-1/2 m-auto">
+          <thead className="border-b-2 border-slate-500">
             <tr>
               <th>Type</th>
               <th>Players</th>
@@ -53,7 +62,7 @@ export default async function Page({
               <th>Date</th>
             </tr>
           </thead>
-          <tbody className=''>
+          <tbody className="">
             {games.reverse().map((game) => (
               // @ts-expect-error Server Component
               <GameCard {...game} key={game.uuid} />
