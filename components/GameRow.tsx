@@ -108,7 +108,7 @@ export async function GameRow(game: Game) {
         </p>
         <p>{getTimeControl(game.time_class, game.time_control)}</p>
       </td>
-      <td className="p-4">
+      <td className="p-4 w-1/4">
         {['white', 'black'].map((player) => (
           <div key={player}>
             <div

@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface DatePickerProps {
   year: number;
@@ -29,6 +30,8 @@ export function DatePicker({
     'November',
     'December',
   ];
+
+  const router = useRouter();
 
   return (
     <div className="flex ml-72">
@@ -73,9 +76,11 @@ export function DatePicker({
           </option>
         ))}
       </select>
-      <Link href={`/${username}?year=${year}&month=${month}`}>
-        <button className="primary-button w-32 ml-4">Go</button>
-      </Link>
+      {/* <Link href={`/${username}?year=${year}&month=${month}`}> */}
+        <button onClick={() => {
+          router.push(`/${username}?year=${year}&month=${month}`);
+        }} className="primary-button w-32 ml-4">Go</button>
+      {/* </Link> */}
     </div>
   );
 }
