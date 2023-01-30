@@ -36,14 +36,16 @@ export default async function Page({
 
   return (
     <main>
-      <UserProfileCard
-        {...{
-          avatar: data.avatar,
-          name: data.name,
-          username: params.username,
-          last_online: data.last_online,
-        }}
-      />
+      <Suspense fallback={<h1>Loading user profile</h1>}>
+        <UserProfileCard
+          {...{
+            avatar: data.avatar,
+            name: data.name,
+            username: params.username,
+            last_online: data.last_online,
+          }}
+        />
+      </Suspense>
       <DatePicker {...{
         year,
         month,

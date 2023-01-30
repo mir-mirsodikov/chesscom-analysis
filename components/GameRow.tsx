@@ -1,5 +1,6 @@
 import { Game } from '@/model';
 import Link from 'next/link';
+import { EqualsIcon, MinusIcon, PlusIcon } from './Icons';
 
 async function getAnalysis(pgn: string) {
   const res = await fetch('https://www.chesscompass.com/api2/games', {
@@ -46,7 +47,11 @@ function getScore(winner: 'white' | 'black' | 'draw', game: Game) {
   }
 }
 
-export async function GameRow(game: Game) {
+interface GameRowProps extends Game {
+  username: string;
+}
+
+export async function GameRow(game: GameRowProps) {
   const data = await getAnalysis(game.pgn);
   const results = getResults(game);
 
@@ -100,6 +105,16 @@ export async function GameRow(game: Game) {
     }
   };
 
+  const getResultIcon = () => {
+    if (results === 'draw') {
+      return <EqualsIcon />;
+    } else if (game[results].username === game.username) {
+      return <PlusIcon />;
+    } else {
+      return <MinusIcon />;
+    }
+  };
+
   return (
     <tr className="bg-slate-300 border-b">
       <td className="text-center p-4">
@@ -132,6 +147,7 @@ export async function GameRow(game: Game) {
           <p>{getScore(results, game).white}</p>
           <p>{getScore(results, game).black}</p>
         </div>
+        <div className='flex flex-col justify-center ml-2'>{getResultIcon()}</div>
       </td>
       <td className="p-4">
         <a

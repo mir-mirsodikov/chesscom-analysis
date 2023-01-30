@@ -59,7 +59,7 @@ export async function GameList({
         <tbody className="">
           {games.reverse().map((game) => (
             // @ts-expect-error Server Component
-            <GameRow {...game} key={game.uuid} />
+            <GameRow {...{...game, username}} key={game.uuid} />
           ))}
         </tbody>
       </table>
