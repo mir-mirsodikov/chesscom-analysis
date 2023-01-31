@@ -138,11 +138,6 @@ export async function GameRow(game: GameRowProps) {
         <p className="text-regular md:text-lg font-semibold">
           {capitalizeFirstLetter(game.time_class)}
         </p>
-        {game.rules !== 'chess' && (
-          <p className="hidden md:block text-regular">
-            {capitalizeFirstLetter(game.rules)}
-          </p>
-        )}
         <p className="hidden md:block">
           {getTimeControl(game.time_class, game.time_control)}
         </p>

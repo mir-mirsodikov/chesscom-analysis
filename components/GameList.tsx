@@ -45,8 +45,8 @@ export async function GameList({
   };
 
   return (
-    <div className="bg-slate-500 my-8 pt-4 w-full xl:w-2/3 lg:w-3/4 m-auto rounded-md">
-      <table className="table-auto w-full xl:m-auto rounded-md">
+    <div className="bg-slate-500 my-8 pt-4 w-full xl:w-2/3 lg:w-3/4 m-auto rounded-md overflow-x-hidden">
+      <table className="table-auto w-full xl:m-auto rounded-md ">
         <thead className="border-b-2 border-slate-500 bg-slate-500 text-gray-200">
           <tr className='hidden md:table-row'>
             <th>Type</th>
@@ -59,7 +59,7 @@ export async function GameList({
         <tbody className="">
           {games.reverse().map((game) => (
             // @ts-expect-error Server Component
-            <GameRow {...{...game, username}} key={game.uuid} />
+            game.rules === 'chess' && <GameRow {...{...game, username}} key={game.uuid} />
           ))}
         </tbody>
       </table>
