@@ -174,7 +174,7 @@ export async function GameRow(game: GameRowProps) {
       </td>
       <td className="p-4 w-1/12">
         <a
-          href={`https://chesscompass.com/analyze/${''}`}
+          href={`https://chesscompass.com/analyze/${data.game_id}`}
           target={'_blank'}
           rel="noreferrer"
         >
