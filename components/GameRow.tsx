@@ -52,7 +52,7 @@ interface GameRowProps extends Game {
 }
 
 export async function GameRow(game: GameRowProps) {
-  // const data = await getAnalysis(game.pgn);
+  const data = await getAnalysis(game.pgn);
   const results = getResults(game);
 
   const parseDate = (pgn: string) => {
