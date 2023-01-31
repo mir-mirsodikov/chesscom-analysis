@@ -34,48 +34,52 @@ export function DatePicker({
   const router = useRouter();
 
   return (
-    <div className="flex ml-72">
-      <select
-        className="p-2 bg-slate-400 rounded-sm text-slate-100"
-        onChange={(e) => {
-          setYear(parseInt(e.target.value));
-        }}
-        value={year}
-      >
-        {/* List all years since 2007 */}
-        {Array.from(
-          { length: new Date().getFullYear() - 2007 + 1 },
-          (_, i) => i + 2007,
-        )
-          .reverse()
-          .map((_year) => (
+    <div className="flex">
+      <div className='bg-slate-500 p-2 rounded-md'>
+        <select
+          className="bg-slate-500 text-slate-100"
+          onChange={(e) => {
+            setYear(parseInt(e.target.value));
+          }}
+          value={year}
+        >
+          {/* List all years since 2007 */}
+          {Array.from(
+            { length: new Date().getFullYear() - 2007 + 1 },
+            (_, i) => i + 2007,
+          )
+            .reverse()
+            .map((_year) => (
+              <option
+                key={_year}
+                value={_year}
+                defaultValue={inputYear.toString()}
+              >
+                {_year}
+              </option>
+            ))}
+        </select>
+      </div>
+      <div className='bg-slate-500 p-2 ml-4 rounded-md'>
+        <select
+          className='bg-slate-500 text-slate-100'
+          onChange={(e) => {
+            setMonth(parseInt(e.target.value));
+          }}
+          value={month}
+        >
+          {/* List all months */}
+          {months.map((_month, i) => (
             <option
-              key={_year}
-              value={_year}
-              defaultValue={inputYear.toString()}
+              key={_month}
+              value={i + 1}
+              defaultValue={months[inputMonth - 1]}
             >
-              {_year}
+              {_month}
             </option>
           ))}
-      </select>
-      <select
-        className='p-2 bg-slate-400 rounded-sm ml-4 text-slate-100'
-        onChange={(e) => {
-          setMonth(parseInt(e.target.value));
-        }}
-        value={month}
-      >
-        {/* List all months */}
-        {months.map((_month, i) => (
-          <option
-            key={_month}
-            value={i + 1}
-            defaultValue={months[inputMonth - 1]}
-          >
-            {_month}
-          </option>
-        ))}
-      </select>
+        </select>
+      </div>
       {/* <Link href={`/${username}?year=${year}&month=${month}`}> */}
         <button onClick={() => {
           router.push(`/${username}?year=${year}&month=${month}`);

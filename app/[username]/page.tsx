@@ -2,19 +2,27 @@ import { DatePicker } from '@/components/DatePicker';
 import { GameList } from '@/components/GameList';
 import { UserProfileCard } from '@/components/UserProfileCard';
 import { UserInfo } from '@/model';
+import profilePic from '@/public/profile.jpg';
 import { Suspense } from 'react';
 import Loading from './loading';
 
-async function getUserInfo(username: string) {
-  const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
-    cache: 'no-store',
-  });
+async function getUserInfo(username: string): Promise<UserInfo> {
+  // const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
+  //   cache: 'no-store',
+  // });
 
-  if (!res.ok) {
-    throw new Error(`An error has occurred: ${res.status}`);
+  // if (!res.ok) {
+  //   throw new Error(`An error has occurred: ${res.status}`);
+  // }
+
+  // return (await res.json()) as Promise<UserInfo>;
+
+  return {
+    username: 'WizardChiken',
+    name: 'Mirmukhammad Mirsodikov',
+    avatar: '/profile.jpeg',
+    last_online: '1629200000'
   }
-
-  return (await res.json()) as Promise<UserInfo>;
 }
 
 export default async function Page({
@@ -46,11 +54,13 @@ export default async function Page({
           }}
         />
       </Suspense>
-      <DatePicker {...{
-        year,
-        month,
-        username: params.username
-      }} />
+      <div className='m-auto w-2/3'>
+        <DatePicker {...{
+          year,
+          month,
+          username: params.username
+        }} />
+      </div>
       <Suspense fallback={<Loading />}>
         {/* @ts-expect-error React Server Component */}
         <GameList {...{

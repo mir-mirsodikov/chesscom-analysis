@@ -52,7 +52,7 @@ interface GameRowProps extends Game {
 }
 
 export async function GameRow(game: GameRowProps) {
-  const data = await getAnalysis(game.pgn);
+  // const data = await getAnalysis(game.pgn);
   const results = getResults(game);
 
   const parseDate = (pgn: string) => {
@@ -116,7 +116,7 @@ export async function GameRow(game: GameRowProps) {
   };
 
   return (
-    <tr className="bg-slate-300 border-b">
+    <tr className="bg-slate-300/70 border-b">
       <td className="text-center p-4">
         <p className="text-lg font-semibold">
           {capitalizeFirstLetter(game.time_class)}
@@ -143,7 +143,7 @@ export async function GameRow(game: GameRowProps) {
         ))}
       </td>
       <td className="flex justify-center p-4">
-        <div className="">
+        <div className="font-semibold">
           <p>{getScore(results, game).white}</p>
           <p>{getScore(results, game).black}</p>
         </div>
@@ -151,7 +151,7 @@ export async function GameRow(game: GameRowProps) {
       </td>
       <td className="p-4">
         <a
-          href={`https://chesscompass.com/analyze/${data.game_id}`}
+          href={`https://chesscompass.com/analyze/${''}`}
           target={'_blank'}
           rel="noreferrer"
         >

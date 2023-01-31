@@ -8,20 +8,23 @@ interface GameListProps {
 }
 
 async function getUserGames(username: string, year: number, month: number) {
-  const res = await fetch(
-    `https://api.chess.com/pub/player/${username}/games/${year}/${
-      month < 10 ? '0' + month : month
-    }`,
-    {
-      cache: 'reload',
-    },
-  );
+  // const res = await fetch(
+  //   `https://api.chess.com/pub/player/${username}/games/${year}/${
+  //     month < 10 ? '0' + month : month
+  //   }`,
+  //   {
+  //     cache: 'reload',
+  //   },
+  // );
 
-  if (!res.ok) {
-    throw new Error(`An error has occurred: ${res.status}`);
-  }
+  // if (!res.ok) {
+  //   throw new Error(`An error has occurred: ${res.status}`);
+  // }
 
-  return (await res.json()).games as Promise<Games>;
+  // return (await res.json()).games as Promise<Games>;
+
+  const games = await import(`public/games.json`);
+  return games.games as Games;
 }
 
 export async function GameList({
@@ -45,9 +48,9 @@ export async function GameList({
   };
 
   return (
-    <div className="my-8">
-      <table className="table-auto xl:w-2/3 w-full xl:m-auto">
-        <thead className="border-b-2 border-slate-500">
+    <div className="bg-slate-600 my-8 pt-4 w-2/3 m-auto rounded-md">
+      <table className="table-auto w-full xl:m-auto rounded-md">
+        <thead className="border-b-2 border-slate-500 bg-slate-600 text-gray-200">
           <tr>
             <th>Type</th>
             <th>Players</th>

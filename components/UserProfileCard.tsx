@@ -7,10 +7,12 @@ export function UserProfileCard({
   username,
 }: UserInfo) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="bg-slate-600 rounded-md p-4 w-1/2 m-auto flex my-10">
       <ProfileImage src={avatar} />
-      <h1 className="text-2xl font-bold">{name}</h1>
-      <h2 className="text-xl font-bold text-gray-500">{username}</h2>
+      <div className='ml-4 flex flex-col justify-center'>
+        <h1 className="text-2xl font-bold text-white">{username}</h1>
+        <h1 className="text-xl font-bold text-gray-300">{name}</h1>
+      </div>
     </div>
   );
 }
