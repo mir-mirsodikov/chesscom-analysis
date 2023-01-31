@@ -1,5 +1,7 @@
 import { DatePicker } from '@/components/DatePicker';
 import { GameList } from '@/components/GameList';
+import { LoadingGameList } from '@/components/Loading/LoadingGameList';
+import { LoadingProfileCard } from '@/components/Loading/ProfileCard';
 import { UserProfileCard } from '@/components/UserProfileCard';
 import { UserInfo } from '@/model';
 import profilePic from '@/public/profile.jpg';
@@ -37,7 +39,7 @@ export default async function Page({
 
   return (
     <main>
-      <Suspense fallback={<h1>Loading user profile</h1>}>
+      <Suspense fallback={<LoadingProfileCard />}>
         <UserProfileCard
           {...{
             avatar: data.avatar,
@@ -54,7 +56,7 @@ export default async function Page({
           username: params.username
         }} />
       </div>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<LoadingGameList />}>
         {/* @ts-expect-error React Server Component */}
         <GameList {...{
           username: params.username,

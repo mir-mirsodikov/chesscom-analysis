@@ -1,3 +1,11 @@
+import { LoadingGameList } from '@/components/Loading/LoadingGameList';
+import { LoadingProfileCard } from '@/components/Loading/ProfileCard';
+
 export default function Loading() {
-  return <h1 className='text-center text-4xl'>loading...</h1>;
+  return (
+    <div>
+      <LoadingProfileCard />
+      <LoadingGameList />
+    </div>
+  );
 }
