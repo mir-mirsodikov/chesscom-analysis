@@ -134,7 +134,7 @@ export async function GameRow(game: GameRowProps) {
 
   return (
     <tr className="bg-slate-300 border-b">
-      <td className="text-center p-4 w-1/6">
+      <td className="text-center p-4 w-1/6 hidden md:table-cell">
         <p className="text-regular md:text-lg font-semibold">
           {capitalizeFirstLetter(game.time_class)}
         </p>
@@ -148,7 +148,7 @@ export async function GameRow(game: GameRowProps) {
             <div
               className={`${getPlayerColor(
                 player,
-              )} p-2 w-2 inline-block rounded-sm ${winnerStyle(player)}`}
+              )} p-2 w-2 md:inline-block rounded-sm ${winnerStyle(player)} hidden`}
             />
             <Link
               href={`/${getPlayer(player).username}`}
