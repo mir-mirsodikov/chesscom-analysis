@@ -25,7 +25,9 @@ export function SearchUser() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <Link href={`/${username}`}>
+          <Link
+            href={`/${username}`}
+          >
             <button className="bg-slate-600 hover:bg-slate-500 w-full mt-4 p-2 text-white rounded-md shadow-lg">
               Search
             </button>
