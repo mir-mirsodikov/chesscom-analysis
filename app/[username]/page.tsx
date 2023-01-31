@@ -7,22 +7,15 @@ import { Suspense } from 'react';
 import Loading from './loading';
 
 async function getUserInfo(username: string): Promise<UserInfo> {
-  // const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
-  //   cache: 'no-store',
-  // });
+  const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
+    cache: 'no-store',
+  });
 
-  // if (!res.ok) {
-  //   throw new Error(`An error has occurred: ${res.status}`);
-  // }
-
-  // return (await res.json()) as Promise<UserInfo>;
-
-  return {
-    username: 'WizardChiken',
-    name: 'Mirmukhammad Mirsodikov',
-    avatar: '/profile.jpeg',
-    last_online: '1629200000'
+  if (!res.ok) {
+    throw new Error(`An error has occurred: ${res.status}`);
   }
+
+  return (await res.json()) as Promise<UserInfo>;
 }
 
 export default async function Page({

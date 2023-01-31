@@ -116,7 +116,7 @@ export async function GameRow(game: GameRowProps) {
   };
 
   return (
-    <tr className="bg-slate-300/70 border-b">
+    <tr className="bg-slate-300 border-b">
       <td className="text-center p-4">
         <p className="text-lg font-semibold">
           {capitalizeFirstLetter(game.time_class)}

@@ -37,7 +37,7 @@ export function DatePicker({
     <div className="flex">
       <div className='bg-slate-500 p-2 rounded-md'>
         <select
-          className="bg-slate-500 text-slate-100"
+          className="bg-slate-500 text-slate-100 focus:outline-none"
           onChange={(e) => {
             setYear(parseInt(e.target.value));
           }}
@@ -62,7 +62,7 @@ export function DatePicker({
       </div>
       <div className='bg-slate-500 p-2 ml-4 rounded-md'>
         <select
-          className='bg-slate-500 text-slate-100'
+          className='bg-slate-500 text-slate-100 focus:outline-none'
           onChange={(e) => {
             setMonth(parseInt(e.target.value));
           }}
