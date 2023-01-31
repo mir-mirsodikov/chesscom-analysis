@@ -1,6 +1,6 @@
 export function LoadingGameList() {
   return (
-    <div className="animate-pulse bg-slate-300 w-2/3 m-auto">
+    <div className="animate-pulse bg-slate-300 w-2/3 m-auto mt-12">
       {Array(10)
         .fill(0)
         .map((_, i) => (

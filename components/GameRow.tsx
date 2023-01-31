@@ -1,6 +1,6 @@
 import { Game } from '@/model';
 import Link from 'next/link';
-import { EqualsIcon, MinusIcon, PlusIcon } from './Icons';
+import { EqualsIcon, MinusIcon, PlusIcon, SearchIcon } from './Icons';
 
 async function getAnalysis(pgn: string) {
   const res = await fetch('https://www.chesscompass.com/api2/games', {
@@ -127,17 +127,31 @@ export async function GameRow(game: GameRowProps) {
     }
   };
 
+  const getUsersColor = () => {
+    if (game.white.username === game.username) {
+      return 'white';
+    } else {
+      return 'black';
+    }
+  }
+
+  const showUser = (color: 'white' | 'black') => {
+    if (game[color].username === game.username) {
+      return 'hidden md:inline-block';
+    }
+  }
+
   return (
     <tr className="bg-slate-300 border-b">
       <td className="text-center p-4 w-1/6">
-        <p className="text-lg font-semibold">
+        <p className="text-regular md:text-lg font-semibold">
           {capitalizeFirstLetter(game.time_class)}
         </p>
-        <p>{getTimeControl(game.time_class, game.time_control)}</p>
+        <p className='hidden md:block'>{getTimeControl(game.time_class, game.time_control)}</p>
       </td>
       <td className="p-4 w-1/3">
         {['white', 'black'].map((player) => (
-          <div key={player}>
+          <div key={player} className={showUser(player as 'white' | 'black')}>
             <div
               className={`${getPlayerColor(
                 player,
@@ -145,7 +159,7 @@ export async function GameRow(game: GameRowProps) {
             />
             <Link
               href={`/${getPlayer(player).username}`}
-              className={'text-lg font-semibold'}
+              className={'text-regular md:text-lg font-semibold'}
             >
               {' '}
               {getPlayer(player).username}{' '}
@@ -155,11 +169,11 @@ export async function GameRow(game: GameRowProps) {
         ))}
       </td>
       <td className="flex justify-center p-4">
-        <div className="font-semibold">
+        <div className="font-semibold hidden md:flex md:flex-col">
           <p>{getScore(results, game).white}</p>
           <p>{getScore(results, game).black}</p>
         </div>
-        <div className="flex flex-col justify-center ml-2">
+        <div className="flex flex-col justify-center md:ml-2">
           {getResultIcon()}
         </div>
       </td>
@@ -169,10 +183,11 @@ export async function GameRow(game: GameRowProps) {
           target={'_blank'}
           rel="noreferrer"
         >
-          <button className="primary-button">Analyze</button>
+          <button className="primary-button hidden md:block">Analyze</button>
+          <button className='primary-button md:hidden'><SearchIcon /></button>
         </a>
       </td>
-      <td className="p-4 text-center w-1/6">
+      <td className="p-4 hidden text-center md:block">
         <p>{parseDate(game.pgn)}</p>
       </td>
     </tr>

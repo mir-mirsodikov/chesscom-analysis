@@ -45,15 +45,15 @@ export async function GameList({
   };
 
   return (
-    <div className="bg-slate-500 my-8 pt-4 w-2/3 m-auto rounded-md">
+    <div className="bg-slate-500 my-8 pt-4 w-full xl:w-2/3 lg:w-3/4 m-auto rounded-md">
       <table className="table-auto w-full xl:m-auto rounded-md">
         <thead className="border-b-2 border-slate-500 bg-slate-500 text-gray-200">
-          <tr>
+          <tr className='hidden md:table-row'>
             <th>Type</th>
             <th>Players</th>
             <th>Result</th>
             <th>Analyze</th>
-            <th>Date</th>
+            <th className='hidden md:block'>Date</th>
           </tr>
         </thead>
         <tbody className="">
