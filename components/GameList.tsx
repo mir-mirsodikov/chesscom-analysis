@@ -53,7 +53,7 @@ export async function GameList({
             <th>Players</th>
             <th>Result</th>
             <th>Analyze</th>
-            <th className='hidden md:block'>Date</th>
+            <th className='hidden md:table-cell'>Date</th>
           </tr>
         </thead>
         <tbody className="">

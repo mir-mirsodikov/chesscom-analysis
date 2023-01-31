@@ -1,5 +1,5 @@
 import { LoadingGameList } from '@/components/Loading/LoadingGameList';
-import { LoadingProfileCard } from '@/components/Loading/ProfileCard';
+import { LoadingProfileCard } from '@/components/Loading/LoadingProfileCard';
 
 export default function Loading() {
   return (

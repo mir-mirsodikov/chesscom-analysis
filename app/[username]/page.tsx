@@ -1,7 +1,7 @@
 import { DatePicker } from '@/components/DatePicker';
 import { GameList } from '@/components/GameList';
 import { LoadingGameList } from '@/components/Loading/LoadingGameList';
-import { LoadingProfileCard } from '@/components/Loading/ProfileCard';
+import { LoadingProfileCard } from '@/components/Loading/LoadingProfileCard';
 import { UserProfileCard } from '@/components/UserProfileCard';
 import { UserInfo } from '@/model';
 import profilePic from '@/public/profile.jpg';
@@ -30,10 +30,14 @@ export default async function Page({
   searchParams?: {
     year: string;
     month: string;
-  },
+  };
 }) {
-  const year = searchParams?.year ? parseInt(searchParams.year) : new Date().getFullYear();
-  const month = searchParams?.month ? parseInt(searchParams.month) : new Date().getMonth() + 1;
+  const year = searchParams?.year
+    ? parseInt(searchParams.year)
+    : new Date().getFullYear();
+  const month = searchParams?.month
+    ? parseInt(searchParams.month)
+    : new Date().getMonth() + 1;
 
   const data = await getUserInfo(params.username);
 
@@ -49,20 +53,24 @@ export default async function Page({
           }}
         />
       </Suspense>
-      <div className='m-auto w-2/3'>
-        <DatePicker {...{
-          year,
-          month,
-          username: params.username
-        }} />
+      <div className="mx-2 md:m-auto md:w-2/3">
+        <DatePicker
+          {...{
+            year,
+            month,
+            username: params.username,
+          }}
+        />
       </div>
       <Suspense fallback={<LoadingGameList />}>
         {/* @ts-expect-error React Server Component */}
-        <GameList {...{
-          username: params.username,
-          year,
-          month,
-        }} />
+        <GameList
+          {...{
+            username: params.username,
+            year,
+            month,
+          }}
+        />
       </Suspense>
     </main>
   );

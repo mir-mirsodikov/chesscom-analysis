@@ -77,7 +77,7 @@ export async function GameRow(game: GameRowProps) {
       const firstNum = parseInt(first);
       const secondNum = parseInt(second);
 
-      if (firstNum > 60) {
+      if (firstNum >= 60) {
         return (
           firstNum / 60 +
           '|' +
@@ -88,7 +88,7 @@ export async function GameRow(game: GameRowProps) {
       return firstNum + ' seconds |' + secondNum;
     } else {
       const num = parseInt(time_control);
-      if (num > 60) {
+      if (num >= 60) {
         return parseInt(time_control) / 60 + ' minutes';
       }
       return time_control + ' seconds';
@@ -187,7 +187,7 @@ export async function GameRow(game: GameRowProps) {
           <button className='primary-button md:hidden'><SearchIcon /></button>
         </a>
       </td>
-      <td className="p-4 hidden text-center md:block">
+      <td className="p-4 hidden text-center md:table-cell">
         <p>{parseDate(game.pgn)}</p>
       </td>
     </tr>
