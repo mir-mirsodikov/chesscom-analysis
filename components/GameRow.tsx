@@ -73,13 +73,25 @@ export async function GameRow(game: GameRowProps) {
     if (time_class === 'daily') {
       return parseInt(time_control.split('/')[1]) / 60 / 60 + ' hours';
     } else if (time_control.includes('+')) {
-      return (
-        parseInt(time_control.split('+')[0]) / 60 +
-        '|' +
-        time_control.split('+')[1]
-      );
+      const [first, second] = time_control.split('+');
+      const firstNum = parseInt(first);
+      const secondNum = parseInt(second);
+
+      if (firstNum > 60) {
+        return (
+          firstNum / 60 +
+          '|' +
+          secondNum
+        );
+      }
+
+      return firstNum + ' seconds |' + secondNum;
     } else {
-      return parseInt(time_control) / 60 + ' minutes';
+      const num = parseInt(time_control);
+      if (num > 60) {
+        return parseInt(time_control) / 60 + ' minutes';
+      }
+      return time_control + ' seconds';
     }
   };
 
@@ -117,13 +129,13 @@ export async function GameRow(game: GameRowProps) {
 
   return (
     <tr className="bg-slate-300 border-b">
-      <td className="text-center p-4">
+      <td className="text-center p-4 w-1/6">
         <p className="text-lg font-semibold">
           {capitalizeFirstLetter(game.time_class)}
         </p>
         <p>{getTimeControl(game.time_class, game.time_control)}</p>
       </td>
-      <td className="p-4 w-1/4">
+      <td className="p-4 w-1/3">
         {['white', 'black'].map((player) => (
           <div key={player}>
             <div
@@ -147,9 +159,11 @@ export async function GameRow(game: GameRowProps) {
           <p>{getScore(results, game).white}</p>
           <p>{getScore(results, game).black}</p>
         </div>
-        <div className='flex flex-col justify-center ml-2'>{getResultIcon()}</div>
+        <div className="flex flex-col justify-center ml-2">
+          {getResultIcon()}
+        </div>
       </td>
-      <td className="p-4">
+      <td className="p-4 w-1/12">
         <a
           href={`https://chesscompass.com/analyze/${''}`}
           target={'_blank'}
@@ -158,7 +172,7 @@ export async function GameRow(game: GameRowProps) {
           <button className="primary-button">Analyze</button>
         </a>
       </td>
-      <td className="p-4 text-center">
+      <td className="p-4 text-center w-1/6">
         <p>{parseDate(game.pgn)}</p>
       </td>
     </tr>
