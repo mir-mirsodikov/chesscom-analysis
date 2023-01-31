@@ -13,7 +13,7 @@ async function getUserGames(username: string, year: number, month: number) {
       month < 10 ? '0' + month : month
     }`,
     {
-      cache: 'reload',
+      cache: 'no-store',
     },
   );
 

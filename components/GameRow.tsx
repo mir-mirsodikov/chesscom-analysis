@@ -56,6 +56,9 @@ export async function GameRow(game: GameRowProps) {
   const results = getResults(game);
 
   const parseDate = (pgn: string) => {
+    if (!pgn) {
+      return 'Unknown date';
+    }
     const date = pgn.slice(
       pgn.indexOf('[Date "') + 7,
       pgn.indexOf('[Date "') + 17,
@@ -78,11 +81,7 @@ export async function GameRow(game: GameRowProps) {
       const secondNum = parseInt(second);
 
       if (firstNum >= 60) {
-        return (
-          firstNum / 60 +
-          '|' +
-          secondNum
-        );
+        return firstNum / 60 + '|' + secondNum;
       }
 
       return firstNum + ' seconds |' + secondNum;
@@ -127,19 +126,11 @@ export async function GameRow(game: GameRowProps) {
     }
   };
 
-  const getUsersColor = () => {
-    if (game.white.username === game.username) {
-      return 'white';
-    } else {
-      return 'black';
-    }
-  }
-
   const showUser = (color: 'white' | 'black') => {
     if (game[color].username === game.username) {
       return 'hidden md:inline-block';
     }
-  }
+  };
 
   return (
     <tr className="bg-slate-300 border-b">
@@ -147,7 +138,14 @@ export async function GameRow(game: GameRowProps) {
         <p className="text-regular md:text-lg font-semibold">
           {capitalizeFirstLetter(game.time_class)}
         </p>
-        <p className='hidden md:block'>{getTimeControl(game.time_class, game.time_control)}</p>
+        {game.rules !== 'chess' && (
+          <p className="hidden md:block text-regular">
+            {capitalizeFirstLetter(game.rules)}
+          </p>
+        )}
+        <p className="hidden md:block">
+          {getTimeControl(game.time_class, game.time_control)}
+        </p>
       </td>
       <td className="p-4 w-1/3">
         {['white', 'black'].map((player) => (
@@ -174,7 +172,9 @@ export async function GameRow(game: GameRowProps) {
           <p>{getScore(results, game).black}</p>
         </div>
         <div className="flex flex-col justify-center md:ml-2">
-          {getResultIcon()}
+          <a href={game.url} target="_blank" rel="noreferrer">
+            {getResultIcon()}
+          </a>
         </div>
       </td>
       <td className="p-4 w-1/12">
@@ -184,7 +184,9 @@ export async function GameRow(game: GameRowProps) {
           rel="noreferrer"
         >
           <button className="primary-button hidden md:block">Analyze</button>
-          <button className='primary-button md:hidden'><SearchIcon /></button>
+          <button className="primary-button md:hidden">
+            <SearchIcon />
+          </button>
         </a>
       </td>
       <td className="p-4 hidden text-center md:table-cell">
