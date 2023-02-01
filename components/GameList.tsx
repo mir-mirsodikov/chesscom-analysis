@@ -18,7 +18,7 @@ async function getUserGames(username: string, year: number, month: number) {
   );
 
   if (!res.ok) {
-    throw new Error(`An error has occurred: ${res.status}`);
+    throw new Error(`Unable to load games for "${username}"`);
   }
 
   return (await res.json()).games as Promise<Games>;

@@ -4,9 +4,7 @@ import { LoadingGameList } from '@/components/Loading/LoadingGameList';
 import { LoadingProfileCard } from '@/components/Loading/LoadingProfileCard';
 import { UserProfileCard } from '@/components/UserProfileCard';
 import { UserInfo } from '@/model';
-import profilePic from '@/public/profile.jpg';
 import { Suspense } from 'react';
-import Loading from './loading';
 
 async function getUserInfo(username: string): Promise<UserInfo> {
   const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
@@ -14,7 +12,7 @@ async function getUserInfo(username: string): Promise<UserInfo> {
   });
 
   if (!res.ok) {
-    throw new Error(`An error has occurred: ${res.status}`);
+    throw new Error(`Unable to find user "${username}"`);
   }
 
   return (await res.json()) as Promise<UserInfo>;
