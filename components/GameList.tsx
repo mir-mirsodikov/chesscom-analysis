@@ -18,6 +18,9 @@ async function getUserGames(username: string, year: number, month: number) {
   );
 
   if (!res.ok) {
+    if (res.status === 404) {
+      return [];
+    }
     throw new Error(`Unable to load games for "${username}"`);
   }
 
@@ -36,7 +39,7 @@ export async function GameList({
   const NoGames = () => {
     if (games.length == 0)
       return (
-        <p className="text-center p-4">
+        <p className="text-center font-bold text-gray-200 p-4">
           No games found for {month}/{year}
         </p>
       );
