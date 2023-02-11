@@ -1,4 +1,10 @@
 import { Game } from '@/model';
+interface Score {
+  white: string;
+  black: string;
+}
+
+type Result = 'white' | 'black' | 'draw';
 
 /**
  * Get the results of a game
@@ -6,7 +12,7 @@ import { Game } from '@/model';
  * @param game The game to get the results from
  * @returns Who won the game, or if it was a draw
  */
-export function getResults(game: Game): 'white' | 'black' | 'draw' {
+export function getResults(game: Game): Result {
   if (game.white.result === 'win') {
     return 'white';
   } else if (game.black.result === 'win') {
@@ -16,7 +22,14 @@ export function getResults(game: Game): 'white' | 'black' | 'draw' {
   }
 }
 
-export function getScore(winner: 'white' | 'black' | 'draw', game: Game) {
+/**
+ * Get the score of a game
+ *  
+ * @param winner The outcome of the game
+ * @param game The game to get the score from
+ * @returns The score of the game
+ */
+export function getScore(winner: Result, game: Game): Score {
   if (winner === 'white' && game.white.result === 'win') {
     return {
       white: '1',
@@ -35,6 +48,12 @@ export function getScore(winner: 'white' | 'black' | 'draw', game: Game) {
   }
 }
 
+/**
+ * Get the date of the game
+ * 
+ * @param pgn PGN of the game
+ * @returns Parsed date of the game
+ */
 export function parseDate(pgn: string): string {
   if (!pgn) {
     return 'Unknown date';
@@ -48,14 +67,21 @@ export function parseDate(pgn: string): string {
   return `${month}/${day}/${year}`;
 }
 
+/**
+ * Get the parsed out time control of the game
+ * 
+ * @param timeClass Time class of the game
+ * @param timeControl Time control of the game
+ * @returns Parsed time control
+ */
 export function getTimeControl(
-  time_class: string,
-  time_control: string,
+  timeClass: string,
+  timeControl: string,
 ): string {
-  if (time_class === 'daily') {
-    return parseInt(time_control.split('/')[1]) / 60 / 60 + ' hours';
-  } else if (time_control.includes('+')) {
-    const [first, second] = time_control.split('+');
+  if (timeClass === 'daily') {
+    return parseInt(timeControl.split('/')[1]) / 60 / 60 + ' hours';
+  } else if (timeControl.includes('+')) {
+    const [first, second] = timeControl.split('+');
     const firstNum = parseInt(first);
     const secondNum = parseInt(second);
 
@@ -65,10 +91,10 @@ export function getTimeControl(
 
     return firstNum + ' seconds |' + secondNum;
   } else {
-    const num = parseInt(time_control);
+    const num = parseInt(timeControl);
     if (num >= 60) {
-      return parseInt(time_control) / 60 + ' minutes';
+      return parseInt(timeControl) / 60 + ' minutes';
     }
-    return time_control + ' seconds';
+    return timeControl + ' seconds';
   }
 }

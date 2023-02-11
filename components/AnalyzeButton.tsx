@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchIcon } from './Icons';
 
 async function getAnalysis(pgn: string) {
@@ -35,10 +35,11 @@ export function AnalyzeButton({ pgn }: AnalyzeButtonProps) {
     window.open(`https://chesscompass.com/analyze/${data.game_id}`);
   };
 
+
   return (
     <>
       <button onClick={handleClick} className="primary-button hidden md:block">
-        {isLoading ? 'Loading...' : 'Analyze'}
+        Analyze
       </button>
       <button onClick={handleClick} className="primary-button md:hidden">
         <SearchIcon />
