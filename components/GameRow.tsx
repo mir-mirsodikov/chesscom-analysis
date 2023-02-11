@@ -1,22 +1,7 @@
 import { Game } from '@/model';
 import Link from 'next/link';
-import { EqualsIcon, MinusIcon, PlusIcon, SearchIcon } from './Icons';
-
-async function getAnalysis(pgn: string) {
-  const res = await fetch('https://www.chesscompass.com/api2/games', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ game_data: pgn }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`An error has occurred: ${res.status}`);
-  }
-
-  return await res.json();
-}
+import { AnalyzeButton } from './AnalyzeButton';
+import { EqualsIcon, MinusIcon, PlusIcon } from './Icons';
 
 function getResults(game: Game): 'white' | 'black' | 'draw' {
   if (game.white.result === 'win') {
@@ -52,7 +37,6 @@ interface GameRowProps extends Game {
 }
 
 export async function GameRow(game: GameRowProps) {
-  const data = await getAnalysis(game.pgn);
   const results = getResults(game);
 
   const parseDate = (pgn: string) => {
@@ -148,7 +132,9 @@ export async function GameRow(game: GameRowProps) {
             <div
               className={`${getPlayerColor(
                 player,
-              )} p-2 w-2 md:inline-block rounded-sm ${winnerStyle(player)} hidden`}
+              )} p-2 w-2 md:inline-block rounded-sm ${winnerStyle(
+                player,
+              )} hidden`}
             />
             <Link
               href={`/${getPlayer(player).username}`}
@@ -173,16 +159,7 @@ export async function GameRow(game: GameRowProps) {
         </div>
       </td>
       <td className="p-4 w-1/12">
-        <a
-          href={`https://chesscompass.com/analyze/${data.game_id}`}
-          target={'_blank'}
-          rel="noreferrer"
-        >
-          <button className="primary-button hidden md:block">Analyze</button>
-          <button className="primary-button md:hidden">
-            <SearchIcon />
-          </button>
-        </a>
+        <AnalyzeButton pgn={game.pgn} />
       </td>
       <td className="p-4 hidden text-center md:table-cell">
         <p>{parseDate(game.pgn)}</p>
