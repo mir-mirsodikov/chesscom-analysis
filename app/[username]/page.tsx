@@ -22,6 +22,7 @@ async function getUserInfo(username: string): Promise<UserInfo> {
     name: userInfo.name,
     last_online: userInfo.last_online,
     username: userInfo.url.split('/').pop() as string,
+    url: userInfo.url
   }
 }
 
@@ -55,6 +56,7 @@ export default async function Page({
             name: data.name,
             username: data.username,
             last_online: data.last_online,
+            url: data.url
           }}
         />
       </Suspense>
