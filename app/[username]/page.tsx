@@ -15,7 +15,14 @@ async function getUserInfo(username: string): Promise<UserInfo> {
     throw new Error(`Unable to find user "${username}"`);
   }
 
-  return (await res.json()) as Promise<UserInfo>;
+  const userInfo = await res.json();
+
+  return {
+    avatar: userInfo.avatar,
+    name: userInfo.name,
+    last_online: userInfo.last_online,
+    username: userInfo.url.split('/').pop() as string,
+  }
 }
 
 export default async function Page({
@@ -46,7 +53,7 @@ export default async function Page({
           {...{
             avatar: data.avatar,
             name: data.name,
-            username: params.username,
+            username: data.username,
             last_online: data.last_online,
           }}
         />
@@ -64,7 +71,7 @@ export default async function Page({
         {/* @ts-expect-error React Server Component */}
         <GameList
           {...{
-            username: params.username,
+            username: data.username,
             year,
             month,
           }}

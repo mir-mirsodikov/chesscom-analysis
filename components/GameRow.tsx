@@ -1,36 +1,8 @@
 import { Game } from '@/model';
+import { getResults, getScore, parseDate, getTimeControl } from '@/utils/game';
 import Link from 'next/link';
 import { AnalyzeButton } from './AnalyzeButton';
 import { EqualsIcon, MinusIcon, PlusIcon } from './Icons';
-
-function getResults(game: Game): 'white' | 'black' | 'draw' {
-  if (game.white.result === 'win') {
-    return 'white';
-  } else if (game.black.result === 'win') {
-    return 'black';
-  } else {
-    return 'draw';
-  }
-}
-
-function getScore(winner: 'white' | 'black' | 'draw', game: Game) {
-  if (winner === 'white' && game.white.result === 'win') {
-    return {
-      white: '1',
-      black: '0',
-    };
-  } else if (winner === 'black' && game.black.result === 'win') {
-    return {
-      white: '0',
-      black: '1',
-    };
-  } else {
-    return {
-      white: '1/2',
-      black: '1/2',
-    };
-  }
-}
 
 interface GameRowProps extends Game {
   username: string;
@@ -39,47 +11,12 @@ interface GameRowProps extends Game {
 export async function GameRow(game: GameRowProps) {
   const results = getResults(game);
 
-  const parseDate = (pgn: string) => {
-    if (!pgn) {
-      return 'Unknown date';
-    }
-    const date = pgn.slice(
-      pgn.indexOf('[Date "') + 7,
-      pgn.indexOf('[Date "') + 17,
-    );
-
-    const [year, month, day] = date.split('.');
-    return `${month}/${day}/${year}`;
-  };
-
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-  const getTimeControl = (time_class: string, time_control: string) => {
-    if (time_class === 'daily') {
-      return parseInt(time_control.split('/')[1]) / 60 / 60 + ' hours';
-    } else if (time_control.includes('+')) {
-      const [first, second] = time_control.split('+');
-      const firstNum = parseInt(first);
-      const secondNum = parseInt(second);
-
-      if (firstNum >= 60) {
-        return firstNum / 60 + '|' + secondNum;
-      }
-
-      return firstNum + ' seconds |' + secondNum;
-    } else {
-      const num = parseInt(time_control);
-      if (num >= 60) {
-        return parseInt(time_control) / 60 + ' minutes';
-      }
-      return time_control + ' seconds';
-    }
-  };
-
   const winnerStyle = (player: string) => {
-    if (player === results || results === 'draw') {
+    if (player === results) {
       return 'border-2 border-green-600';
     }
   };

@@ -3,4 +3,5 @@ export interface UserInfo {
   avatar: string;
   name: string;
   last_online: string;
+  url?: string;
 }
