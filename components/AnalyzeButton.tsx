@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { SearchIcon } from './Icons';
 
 async function getAnalysis(pgn: string) {
@@ -11,8 +10,6 @@ async function getAnalysis(pgn: string) {
     },
     body: JSON.stringify({ game_data: pgn }),
   });
-
-  console.log('hit');
 
   if (!res.ok) {
     throw new Error(`An error has occurred: ${res.status}`);
@@ -26,15 +23,10 @@ interface AnalyzeButtonProps {
 }
 
 export function AnalyzeButton({ pgn }: AnalyzeButtonProps) {
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleClick = async () => {
-    setIsLoading(true);
     const data = await getAnalysis(pgn);
-    setIsLoading(false);
-    window.open(`https://chesscompass.com/analyze/${data.game_id}`);
+    window.open(`https://chesscompass.com/analyze/${data.data.game_id}`);
   };
-
 
   return (
     <>
