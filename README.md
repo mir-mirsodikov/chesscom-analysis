@@ -1,5 +1,17 @@
 <h1>Chess.com Games Analysis</h1>
 
+<div align="center">
+  <a aria-label="Framework" href="https://nextjs.org/" target="_blank">
+    <img src="https://img.shields.io/badge/MADE%20WITH%20NEXT-000.svg?style=for-the-badge&logo=Next.js&labelColor=000" />
+  </a>
+  <a aria-label="Platform" href="https://chesscom-analysis.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/HOSTED%20ON%20VERCEL-000.svg?style=for-the-badge&logo=Vercel&labelColor=000" />
+  </a>
+  <a aria-label="License" href="https://github.com/mir-mirsodikov/chesscom-analysis/blob/main/LICENSE">
+    <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
+  </a>
+</div>
+
 - [Overview](#overview)
 - [Documentation](#documentation)
   - [Flow](#flow)
