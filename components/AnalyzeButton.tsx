@@ -25,6 +25,14 @@ interface AnalyzeButtonProps {
 export function AnalyzeButton({ pgn }: AnalyzeButtonProps) {
   const handleClick = async () => {
     const data = await getAnalysis(pgn);
+
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    if (isSafari) {
+      window.location.href = `https://chesscompass.com/analyze/${data.data.game_id}`;
+      return;
+    }
+
     window.open(`https://chesscompass.com/analyze/${data.data.game_id}`);
   };
 
