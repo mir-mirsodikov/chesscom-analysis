@@ -1,3 +1,4 @@
+'use client';
 import { AnalyticsWrapper } from '@/components/Analytics'
 import './globals.css'
 

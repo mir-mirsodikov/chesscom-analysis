@@ -1,3 +1,4 @@
+'use client';
 import { LoadingGameList } from '@/components/Loading/LoadingGameList';
 import { LoadingProfileCard } from '@/components/Loading/LoadingProfileCard';
 
