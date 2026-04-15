@@ -1,5 +1,6 @@
+'use client';
 import { Game } from '@/model';
-import { getResults, getScore, parseDate, getTimeControl } from '@/utils/game';
+import { getResults, getScore, getTimeControl, parseDate } from '@/utils/game';
 import Link from 'next/link';
 import { AnalyzeButton } from './AnalyzeButton';
 import { EqualsIcon, MinusIcon, PlusIcon } from './Icons';
@@ -8,7 +9,7 @@ interface GameRowProps extends Game {
   username: string;
 }
 
-export async function GameRow(game: GameRowProps) {
+export function GameRow(game: GameRowProps) {
   const results = getResults(game);
 
   const capitalizeFirstLetter = (string: string) => {

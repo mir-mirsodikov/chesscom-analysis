@@ -1,3 +1,5 @@
+'use client';
+
 export function LoadingGameList() {
   return (
     <div className="animate-pulse bg-slate-300 w-full lg:w-3/4 xl:w-2/3 m-auto mt-12">

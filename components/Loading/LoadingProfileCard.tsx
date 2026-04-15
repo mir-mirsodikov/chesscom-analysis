@@ -1,3 +1,5 @@
+'use client';
+
 export function LoadingProfileCard() {
   return (
     <div className="animate-pulse bg-slate-300 rounded-md p-4 md:w-2/3 lg:w-1/2 m-auto flex my-10">
