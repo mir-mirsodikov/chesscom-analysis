@@ -1,7 +1,7 @@
 'use client';
 import { NavBar } from '@/components/NavBar';
 
-export default function RootLayout({
+export default function AnalyzeLayout({
   children,
 }: {
   children: React.ReactNode;

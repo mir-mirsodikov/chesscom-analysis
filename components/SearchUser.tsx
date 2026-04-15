@@ -1,9 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export function SearchUser() {
+  const router = useRouter();
   const [username, setUsername] = useState('');
 
   return (
@@ -11,7 +12,15 @@ export function SearchUser() {
       <h1 className="text-3xl">Find user</h1>
 
       <div className="mt-4">
-        <form action="">
+        <form
+          action=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            const normalizedUsername = username.trim();
+            if (!normalizedUsername) return;
+            router.push(`/analyze?username=${encodeURIComponent(normalizedUsername)}`);
+          }}
+        >
           <label
             htmlFor="username"
             className="block text-sm font-medium text-gray-700"
@@ -25,13 +34,12 @@ export function SearchUser() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <Link
-            href={`/${username}`}
+          <button
+            className="bg-slate-600 hover:bg-slate-500 w-full mt-4 p-2 text-white rounded-md shadow-lg"
+            type="submit"
           >
-            <button className="bg-slate-600 hover:bg-slate-500 w-full mt-4 p-2 text-white rounded-md shadow-lg">
-              Search
-            </button>
-          </Link>
+            Search
+          </button>
         </form>
       </div>
     </div>

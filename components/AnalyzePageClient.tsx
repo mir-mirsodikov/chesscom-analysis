@@ -6,8 +6,8 @@ import { LoadingGameList } from '@/components/Loading/LoadingGameList';
 import { LoadingProfileCard } from '@/components/Loading/LoadingProfileCard';
 import { UserProfileCard } from '@/components/UserProfileCard';
 import { UserInfo } from '@/model';
-import { useParams, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 async function getUserInfo(username: string): Promise<UserInfo> {
   const res = await fetch(`https://api.chess.com/pub/player/${username}`);
@@ -27,27 +27,31 @@ async function getUserInfo(username: string): Promise<UserInfo> {
   };
 }
 
-export default function Page() {
-  const params = useParams<{ username: string }>();
+function parseNumber(value: string | null, fallback: number): number {
+  if (!value) return fallback;
+  const parsed = Number.parseInt(value, 10);
+  return Number.isNaN(parsed) ? fallback : parsed;
+}
+
+export function AnalyzePageClient() {
   const searchParams = useSearchParams();
-  const rawUsername = params?.username;
-  const username = Array.isArray(rawUsername) ? rawUsername[0] : rawUsername ?? '';
+  const username = searchParams?.get('username')?.trim() ?? '';
+  const year = parseNumber(searchParams?.get('year') ?? null, new Date().getFullYear());
+  const month = parseNumber(searchParams?.get('month') ?? null, new Date().getMonth() + 1);
 
   const [data, setData] = useState<UserInfo | null>(null);
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
 
-  const year = useMemo(() => {
-    const value = searchParams?.get('year');
-    return value ? parseInt(value) : new Date().getFullYear();
-  }, [searchParams]);
-
-  const month = useMemo(() => {
-    const value = searchParams?.get('month');
-    return value ? parseInt(value) : new Date().getMonth() + 1;
-  }, [searchParams]);
-
   useEffect(() => {
     let isCancelled = false;
+
+    if (!username) {
+      setData(null);
+      setIsLoadingProfile(false);
+      return () => {
+        isCancelled = true;
+      };
+    }
 
     const loadUser = async () => {
       setIsLoadingProfile(true);
@@ -73,6 +77,16 @@ export default function Page() {
       isCancelled = true;
     };
   }, [username]);
+
+  if (!username) {
+    return (
+      <main>
+        <p className="text-center font-bold text-gray-200 p-8">
+          Enter a username using /analyze?username=your-name
+        </p>
+      </main>
+    );
+  }
 
   return (
     <main>

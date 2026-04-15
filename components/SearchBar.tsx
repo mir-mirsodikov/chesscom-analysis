@@ -1,13 +1,22 @@
 'use client';
-import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export function SearchBar() {
+  const router = useRouter();
   const [username, setUsername] = useState('');
 
   return (
     <div className="rounded-md flex">
-      <form action="">
+      <form
+        action=""
+        onSubmit={(e) => {
+          e.preventDefault();
+          const normalizedUsername = username.trim();
+          if (!normalizedUsername) return;
+          router.push(`/analyze?username=${encodeURIComponent(normalizedUsername)}`);
+        }}
+      >
         <input
           type="text"
           className="p-1 m-auto rounded-md mt-1 bg-slate-200 shadow-inner focus:outline"
@@ -15,9 +24,9 @@ export function SearchBar() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <Link href={`/${username}`}>
-          <button className="primary-button ml-2 w-24 py-1">Search</button>
-        </Link>
+        <button className="primary-button ml-2 w-24 py-1" type="submit">
+          Search
+        </button>
       </form>
     </div>
   );

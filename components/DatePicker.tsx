@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -80,11 +79,16 @@ export function DatePicker({
           ))}
         </select>
       </div>
-      {/* <Link href={`/${username}?year=${year}&month=${month}`}> */}
-        <button onClick={() => {
-          router.push(`/${username}?year=${year}&month=${month}`);
-        }} className="primary-button w-32 ml-4">Go</button>
-      {/* </Link> */}
+      <button
+        onClick={() => {
+          router.push(
+            `/analyze?username=${encodeURIComponent(username)}&year=${year}&month=${month}`,
+          );
+        }}
+        className="primary-button w-32 ml-4"
+      >
+        Go
+      </button>
     </div>
   );
 }
