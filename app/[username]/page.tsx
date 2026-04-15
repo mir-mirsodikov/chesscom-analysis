@@ -10,9 +10,7 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
 async function getUserInfo(username: string): Promise<UserInfo> {
-  const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
-    cache: 'no-store',
-  });
+  const res = await fetch(`https://api.chess.com/pub/player/${username}`);
 
   if (!res.ok) {
     throw new Error(`Unable to find user "${username}"`);
